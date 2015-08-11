@@ -5,6 +5,8 @@ class Editors extends GM_Controller {
     }
 
     public function index() {
+        $this->load->view('editors/header');
         $this->load->view('editors/index');
+        $this->load->view('editors/footer');
     }
 }

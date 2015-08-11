@@ -303,9 +303,9 @@ $config['cache_query_string'] = FALSE;
 | See the user guide for more info.
 |
 | http://codeigniter.com/user_guide/libraries/encryption.html
-|
+| key: sha1(gume110815)
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = '80FB9861048F7DA575C1E6D6B800D296B6B23CA3';
 
 /*
 |--------------------------------------------------------------------------
