@@ -12,6 +12,8 @@ var Editor = {
     contentEditor: $('#content_editor'),
     topRuler: $('#top_ruler'),
     leftRuler: $('#left_ruler'),
+    topRulerPadding: 600,
+    leftRulerPadding: 700,
     topRulerCursor: $('#top_ruler_cursor'),
     leftRulerCursor: $('#left_ruler_cursor'),
     url: null,
@@ -38,12 +40,16 @@ var Editor = {
         self._initContentEditor();
         // init ruler
         self._initRuler();
+        // init ruler guides
+        self._initRulerGuides();
     },
     eventHandle: function() {
         var self = this;
 
         self._editorScroll();
         self._editorMouseMove();
+        self._windowResize();
+        self._rulerClick();
     },
     _initResolution: function() {
         var self = this;
@@ -93,9 +99,10 @@ var Editor = {
         }
         self.topRuler.css('width', rulerWidth + 'px');
         // set top ruler value
+        self.topRuler.find('.ruler-value').remove();
         for (i=0; i<=rulerWidth; i+=100) {
-            if (i-600 >= 0) {
-                rulerValue = $('<div class="ruler-value">' + (i-600) + '</div>');
+            if (i-self.topRulerPadding >= 0) {
+                rulerValue = $('<div class="ruler-value">' + (i-self.topRulerPadding) + '</div>');
                 rulerValue.css({
                     top: '2px',
                     left:  (i + 2) + 'px'
@@ -112,9 +119,10 @@ var Editor = {
         }
         self.leftRuler.css('height', rulerHeight + 'px');
         // set left ruler value
+        self.leftRuler.find('.ruler-value').remove();
         for (i=0; i<=rulerHeight; i+=100) {
-            if (i-700 >= 0) {
-                rulerValue = $('<div class="ruler-value">' + (i-700) + '</div>');
+            if (i-self.leftRulerPadding >= 0) {
+                rulerValue = $('<div class="ruler-value">' + (i-self.leftRulerPadding) + '</div>');
                 rulerValue.css({
                     top: (i + 1) + 'px',
                     left:  '2px'
@@ -122,6 +130,20 @@ var Editor = {
                 self.leftRuler.append(rulerValue);
             }
         }
+    },
+    _initRulerGuides: function() {
+        var self = this;
+
+        // set guides line
+        self.topRuler.find('.guides-line').css('height', self.leftRuler.height() + 'px');
+        self.leftRuler.find('.guides-line').css('width', self.topRuler.width() + 'px');
+        // allow drag guide icon
+        self.topRuler.find('.guides-top').draggable({
+            axis: 'x'
+        });
+        self.leftRuler.find('.guides-left').draggable({
+            axis: 'y'
+        });
     },
     _editorScroll: function() {
         var self = this;
@@ -140,6 +162,42 @@ var Editor = {
         self.editor.mousemove(function(e) {
             self.topRulerCursor.css('left', e.pageX + 'px');
             self.leftRulerCursor.css('top', e.pageY + 'px');
+        });
+    },
+    _windowResize: function() {
+        var self = this;
+
+        self.win.resize(function() {
+            self.init();
+        });
+    },
+    _rulerClick: function() {
+        var self = this;
+
+        // handle for top ruler
+        self.topRuler.click(function(e) {
+            var _x = e.pageX + self.editor.scrollLeft() + self.topRulerPadding - 120 - 6,
+                guides = $('<div class="guides-top"></div>');
+
+            guides.append('<div class="guides-icon"></div>');
+            guides.append('<div class="guides-line"></div>');
+            guides.css('left', _x + 'px');
+
+            self.topRuler.append(guides);
+            self._initRulerGuides();
+        });
+
+        // handle for left ruler
+        self.leftRuler.click(function(e) {
+            var _y = e.pageY + self.editor.scrollTop() + self.leftRulerPadding - 156 - 6,
+                guides = $('<div class="guides-left"></div>');
+
+            guides.append('<div class="guides-icon"></div>');
+            guides.append('<div class="guides-line"></div>');
+            guides.css('top', _y + 'px');
+
+            self.leftRuler.append(guides);
+            self._initRulerGuides();
         });
     },
     run: function() {

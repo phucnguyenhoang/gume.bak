@@ -26,6 +26,7 @@ html, body {
     top: 20px;
     left: 20px;
     background-color: #dddddd;
+    z-index: -1;
 }
 #content_editor {
     position: absolute;
@@ -39,6 +40,14 @@ html, body {
     background-image: url("../img/ruler-top.png");
     background-repeat: repeat-x;
     opacity: .6;
+    z-index: 998;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 #left_ruler {
     position: fixed;
@@ -49,6 +58,14 @@ html, body {
     background-image: url("../img/ruler-left.png");
     background-repeat: repeat-y;
     opacity: .6;
+    z-index: 997;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 #ruler_mark {
     position: fixed;
@@ -57,6 +74,7 @@ html, body {
     width: 20px;
     height: 20px;
     background-color: #dddddd;
+    z-index: 999;
 }
 .ruler-value {
     position: absolute;
@@ -77,4 +95,68 @@ html, body {
     width: 1px;
     height: 20px;
     background-color: red;
+}
+
+.guides-top {
+    position: absolute;
+    top: 0;
+    left: 700px;
+    width: 0;
+    height: 0;
+    overflow: visible;
+}
+
+.guides-top .guides-icon {
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 13px;
+    height: 22px;
+    background-image: url("../img/ruler-top.png");
+    background-position: 0 -20px;
+    background-repeat: no-repeat;
+    cursor: w-resize;
+}
+.guides-top .guides-icon:hover {
+    background-position: -13px -20px;
+}
+.guides-top .guides-line {
+    position: absolute;
+    top: 30px;
+    left: 6px;
+    width: 1px;
+    background-color: cyan;
+    cursor: default;
+}
+
+.guides-left {
+    position: absolute;
+    top: 800px;
+    left: 0;
+    width: 0;
+    height: 0;
+    overflow: visible;
+}
+
+.guides-left .guides-icon {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 22px;
+    height: 13px;
+    background-image: url("../img/ruler-left.png");
+    background-position: -20px 0;
+    background-repeat: no-repeat;
+    cursor: s-resize;
+}
+.guides-left .guides-icon:hover {
+    background-position: -20px -13px;
+}
+.guides-left .guides-line {
+    position: absolute;
+    top: 6px;
+    left: 30px;
+    height: 1px;
+    background-color: cyan;
+    cursor: default;
 }

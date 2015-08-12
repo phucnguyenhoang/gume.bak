@@ -2,6 +2,7 @@
 <input type="hidden" id="base_url" value="<?php echo base_url(); ?>">
 <script src="<?php echo base_url('resources/js/jquery-2.1.4.min.js'); ?>"></script>
 <script src="<?php echo base_url('resources/js/bootstrap.min.js'); ?>"></script>
+<script src="<?php echo base_url('resources/js/jquery-ui.min.js'); ?>"></script>
 <script src="<?php echo base_url('resources/js/web-editor.js'); ?>"></script>
 </body>
 </html>
